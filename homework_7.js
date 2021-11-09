@@ -2,11 +2,7 @@ function Calculator(name){
     this.name = name;
     let history = [];
     let date = new Date();
-    this.sum = function(arg1,...array) {
-        if (isNaN(arg1)) {
-            console.error("Argument is not a number"+" \""+arg1+"\"");
-            return null;
-        }
+    this.sum = function(...array) {
         let is_valid = true;
         let num_array = array.map(element => {
             let temp = +element;
@@ -19,8 +15,7 @@ function Calculator(name){
         }); 
         if (!is_valid) return null;
         let sum_res = num_array.reduce((element_sum, a) => element_sum + a,0); 
-        sum_res+=arg1;
-        add_story_record("+",sum_res,arg1,array,this.name);
+        add_story_record("+",sum_res,null,array,this.name);
         return sum_res;
       };
 
@@ -35,10 +30,6 @@ function Calculator(name){
       };
 
     this.mult = function(arg1,...array) {
-        if (isNaN(arg1)) {
-            console.error("Argument is not a number"+" \""+arg1+"\"");
-            return null;
-        }
         let is_valid = true;
         let num_array = array.map(element => {
             let temp = +element;
@@ -54,7 +45,7 @@ function Calculator(name){
         if (!is_valid) return null;
         let mult_res = num_array.reduce((element_sum, a) => element_sum * a); 
         mult_res*=arg1;
-        add_story_record("*",mult_res,arg1,array,this.name);
+        add_story_record("*",mult_res,null,array,this.name);
         return mult_res;
       };
 
@@ -70,10 +61,11 @@ function Calculator(name){
       function add_story_record(action,res,arg1,arg2,name) {
           let year = date.getFullYear();
           let month = date.getMonth();
-          let day = date.getDay();
+          let day = date.getDate();
           let hour = date.getHours();
           let min = date.getMinutes();
           let action_str = null;
+          let arg_str = null;
           switch (action) {
               case "+":{
                 action_str = "сумма";
@@ -92,11 +84,13 @@ function Calculator(name){
                 break;
             }
           }
-          if (Array.isArray(arg2)) {
-            arg2 = arg2.join(",");
-          }
+        if (Array.isArray(arg2)) {
+            arg2 = arg2.join(", ");
+        }
+        if (arg1 == null) arg_str = arg2;
+        else arg_str = arg1+", "+arg2;
         history.push("\""+name+" "+"("+day+"."+month+"."+year+" "+hour+":"+min+")"+":"+action_str+" = "+
-        res+", "+"("+arg1+", "+arg2+")"+"\"");
+        res+", "+"("+arg_str+")"+"\"");
         return;
       };
       this.get_story_record = function() {
