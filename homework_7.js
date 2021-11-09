@@ -6,7 +6,7 @@ function Calculator(name){
         let is_valid = true;
         let num_array = array.map(element => {
             let temp = +element;
-            if (!isNaN(temp)) return element = temp;
+            if (!isNaN(temp)) return temp;
             else {
                 console.error("Argument is not a number"+" \""+element+"\"");
                 is_valid = false;
@@ -29,12 +29,12 @@ function Calculator(name){
         return res;
       };
 
-    this.mult = function(arg1,...array) {
+    this.mult = function(...array) {
         let is_valid = true;
         let num_array = array.map(element => {
             let temp = +element;
             if (!isNaN(temp)) {
-                return element = temp;
+                return temp;
             }
             else {
                 console.error("Argument is not a number"+" \""+element+"\"");
