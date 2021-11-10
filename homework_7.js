@@ -44,7 +44,6 @@ function Calculator(name){
         })
         if (!is_valid) return null;
         let mult_res = num_array.reduce((element_sum, a) => element_sum * a); 
-        mult_res*=arg1;
         add_story_record("*",mult_res,null,array,this.name);
         return mult_res;
       };
@@ -107,12 +106,13 @@ function Calculator(name){
         return;
       };
 }
+
 let calc = new Calculator("calc");
 let a = 1;
 let b = 9;
 console.log(calc.sum(a,"10",30,10));
 console.log(calc.sub(a,b));
-console.log(calc.mult(a,"a",1,5,10));
+console.log(calc.mult(a,0,1,5,10));
 console.log(calc.div(a,b));
 calc.get_story_record();
 calc.clear_story_record();
